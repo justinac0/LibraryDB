@@ -1,3 +1,5 @@
+import "../styles/book.css";
+
 import React, { useState } from "react";
 
 const Book = ({name, author, description}) => {
@@ -8,24 +10,19 @@ const Book = ({name, author, description}) => {
     }
 
     return (
-        <article className={isExpanded ? "ExpandedBook" : "Book"} onClick={isExpanded ? _ => {} : toggleExpand}>
-            {isExpanded && (
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/JPEG_example_subimage.svg/256px-JPEG_example_subimage.svg.png" alt=""  onDragStart={e => e.preventDefault()}/>
-            )}
+        <article className={isExpanded ? "BookDetail Book" : "BookCard Book"} onClick={isExpanded ? _ => {} : toggleExpand}>
+            <img className="CoverImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/JPEG_example_subimage.svg/256px-JPEG_example_subimage.svg.png" alt="" onDragStart={e => e.preventDefault()}/>
 
-            <div className="Info">
+            <section className="BookInfo">
                 <h2>{name}</h2>
                 <p><b>{author}</b></p>
-                <p>{description}</p>
-            </div>
+                <p className={!isExpanded && "BookInfoFallOff"}>{description}</p>
 
-            {isExpanded ? (
-                <button className="Button" onClick={toggleExpand}>
+                <button className={(isExpanded ? "" : "Hide") + " " + "BookCloseDetail"} onClick={toggleExpand}>
                     <b>Close</b>
                 </button>
-            ) : (
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/JPEG_example_subimage.svg/256px-JPEG_example_subimage.svg.png" alt=""  onDragStart={e => e.preventDefault()}/>
-            )}
+            </section>
+
         </article>
     );
 }

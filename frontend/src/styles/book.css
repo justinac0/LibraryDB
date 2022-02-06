@@ -1,0 +1,54 @@
+/* Title, Author, Description */
+.BookInfo {
+    padding: 2ch;
+}
+
+/* Fade Description text */
+.BookInfoFallOff::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 64px;
+    width: 100%;
+    background: linear-gradient(rgba(255,255,255,.45), white);
+}
+
+.Book {
+    margin-bottom: 1em;
+    border-radius: 15px;
+    background-color: #fff;
+    transition: 0.1s;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.25);
+}
+
+.BookCard {
+    display: flex;
+    position: relative;
+    max-height: 256px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.BookCard:hover {
+    transform: translateX(-15px);
+}
+
+.BookDetail {
+    padding: 3ch;
+}
+
+.BookDetail > img {
+    border-radius: 15px;
+}
+
+.BookCloseDetail {
+    padding: 1ch;
+    margin-top: 1.5ch;
+    width: 100%;
+    text-transform: lowercase;
+    background-color: #454545a0;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+}
