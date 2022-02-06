@@ -18,7 +18,7 @@ const Book = ({name, author, description}) => {
                 <p><b>{author}</b></p>
                 <p className={!isExpanded && "BookInfoFallOff"}>{description}</p>
 
-                <button className={(isExpanded ? "" : "Hide") + " " + "BookCloseDetail"} onClick={toggleExpand}>
+                <button className={(isExpanded ? "" : "Hide") + " " + "BookCloseDetail Button"} onClick={toggleExpand}>
                     <b>Close</b>
                 </button>
             </section>
