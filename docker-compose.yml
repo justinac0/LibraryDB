@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  react:
+    build: ./frontend
+    ports:
+      - "80:3000"
+
+  flask:
+    build: ./backend
+    ports:
+      - 5000:5000
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    logging:
+      driver: none
+
+  # nginx
