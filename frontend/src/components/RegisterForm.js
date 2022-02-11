@@ -1,43 +1,28 @@
-import "../styles/login-form.css"
+import "../styles/account-form.css"
 
 import React, { useState } from "react";
+import FormField from "./FormField";
+
+import { useAuth } from "../context/Auth";
 
 const RegisterForm = () => {
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    // const [email, setEmail] = useState("");
+
+    const auth = useAuth();
 
     const onSubmit = async (e) => {
-        const response = await fetch("http://localhost:5000/v1/users", {
-            method: "POST",
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({username, email, password})
-        });
-        console.log(await response.json());
+        e.preventDefault();
+        auth.register(username, password);
     };
 
     return (
         <>
-            <h1><u>Register</u></h1>
-            {/* Login */}
             <form onSubmit={onSubmit}>
-                <label for="username">Username:</label>
-                <br />
-                <input className="Textfield" name="username" type="text" onChange={e => setUsername(e.target.value)} required/>
-                
-                <br />
-                <label for="email">Email:</label>
-                <br />
-                <input className="Textfield" name="email" type="text" onChange={e => setEmail(e.target.value)} required/>
-
-                <br />
-                <label for="password">Password:</label>
-                <br />
-                <input className="Textfield" name="password" type="password" onChange={e => setPassword(e.target.value)} required/>
-                <br />
+                <h1><u>Register</u></h1>
+                <FormField label="Username:" name="username" onChange={setUsername} required/>
+                <FormField label="Password:" name="password" onChange={setPassword} required/>
 
                 <input className="Button LoginButton" type="submit" value={"Submit"}/>
             </form>

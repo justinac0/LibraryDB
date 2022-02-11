@@ -2,28 +2,6 @@ version: "3.9"
 
 services:
 
-  react:
-    build:
-      context: "./frontend"
-      dockerfile: "Dockerfile.dev"
-    environment:
-      NODE_ENV: "development"
-      CHOKIDAR_USEPOLLING: "true"
-    volumes:
-      - "./frontend/src:/frontend/src"
-      - "./frontend/public:/frontend/public"
-    ports:
-      - "80:3000"
-
-  flask:
-    build:
-      context: "./backend"
-      dockerfile: "Dockerfile.dev"
-    volumes:
-      - "./backend/api:/backend/api"
-    ports:
-      - "5000:5000"
-
   db:
     image: mariadb
     restart: always
@@ -37,5 +15,33 @@ services:
       - "8080:8080"
     logging:
       driver: none
+    depends_on:
+      - db
+
+  flask:
+    build:
+      context: "./backend"
+      dockerfile: "Dockerfile.dev"
+    volumes:
+      - "./backend/api:/backend/api"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  react:
+    build:
+      context: "./frontend"
+      dockerfile: "Dockerfile.dev"
+    environment:
+      NODE_ENV: "development"
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - "./frontend/src:/frontend/src"
+      - "./frontend/public:/frontend/public"
+    ports:
+      - "80:3000"
+    depends_on:
+      - flask
 
   # nginx

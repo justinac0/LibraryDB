@@ -1,3 +1,7 @@
+:root {
+    --cardBorderThickness: 4px;
+}
+
 /* Title, Author, Description */
 .BookInfo {
     padding: 2ch;
@@ -28,14 +32,12 @@
     max-height: 256px;
     overflow: hidden;
     cursor: pointer;
-}
-
-.BookCard:hover {
-    transform: translateX(-15px);
+    border: var(--cardBorderThickness) solid white;
 }
 
 .BookDetail {
     padding: 3ch;
+    border: 8px solid white;
 }
 
 .BookDetail > img {
@@ -51,4 +53,20 @@
     color: white;
     border: 0;
     border-radius: 5px;
+}
+
+@media screen and (max-width: 640px) {
+
+    .BookCard > img {
+        display: none;
+    }
+
+}
+
+@media (pointer:fine) {
+
+    .BookCard:hover {
+        border: var(--cardBorderThickness) solid #009688;
+    }
+    
 }

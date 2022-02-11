@@ -1,0 +1,30 @@
+.AccountManagement {
+    display: grid;
+    grid-template-columns: 100%;
+    background-color: #d0d0d0;
+    border-radius: 15px;
+    border: 1px dashed black;
+    padding: 2ch;
+}
+.AccountManagement > * {
+    text-align: left;
+    margin: auto;
+}
+
+.Textfield {
+    margin-top: 1ch;
+    padding: 1ch;
+    border: 2px solid #525252;
+    border-radius: 5px;
+    margin-bottom: 2ch;
+}
+
+.Textfield:focus {
+    background-color: #C8E6C950;
+}
+
+.LoginButton {
+    width: 100%;
+    cursor: pointer;
+    background-color: #009688;
+}

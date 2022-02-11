@@ -1,14 +1,17 @@
 .Nav {
-    display: flex;
-    justify-content: left;
-    margin-top: 0;
-    margin-bottom: 2em;
+    display: inline-block;
     width: 100%;
-    height: auto;
     background-color: #fff;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.25);
 }
 
-.Nav > h2 {
+.Nav > * {
     margin-left: 2em;
+}
+
+.shorty {
+    width: 32ch;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

@@ -1,47 +1,37 @@
-import "../styles/login-form.css"
+import "../styles/account-form.css"
 
 import React, { useState } from "react";
+
+import { useAuth } from "../context/Auth"
+import FormField from "./FormField";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const auth = useAuth();
+
     const onSubmit = async (e) => {
         e.preventDefault();
-        // const response = await fetch("http://localhost:5000/v1/users", {
-        //     method: "POST",
-        //     headers: {
-        //     'Accept': 'application/json',
-        //     'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({username, email, password})
-        // });
-        // console.log(await response.json());
+
+        auth.updateToken(await auth.login(username, password));
     };
 
     return (
         <>
-            <h1><u>Login</u></h1>
-            {/* Login */}
-            <form onSubmit={onSubmit}>
-                <FormField label="Username:" name="username" onChange={setUsername} required/>
-                <FormField label="Password:" name="password" type="password" onChange={setPassword} required/>
+            {auth.token ?
+                <button  className="Button LoginButton" onClick={auth.logout}>Logout</button>
+            :
+                <form onSubmit={onSubmit}>
+                    <h1><u>Login</u></h1>
+                    <FormField label="Username:" name="username" onChange={setUsername} required/>
+                    <FormField label="Password:" name="password" type="password" onChange={setPassword} required/>
 
-                <input className="Button LoginButton" type="submit" value={"Login"}/>
-            </form>
+                    <input className="Button LoginButton" type="submit" value={"Login"}/>
+                </form>
+            }
         </>
     );
 }
-
-const FormField = ({ label, type = "text", name, onChange, required = false }) => {
-    return (
-        <>
-            <label for={name}>{label}</label>
-            <br />
-            <input className="Textfield" name={name} type={type} onChange={e => onChange(e.target.value)} required={required}/>
-            <br />
-        </>
-    );
-};
 
 export default LoginForm;
