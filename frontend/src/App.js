@@ -3,11 +3,13 @@ import "./styles/global.css";
 import { StrictMode } from "react";
 
 import { LibraryProvider } from "./context/Library";
-import BookList from "./components/BookList";
+import { AuthProvider, useAuth } from "./context/Auth";
+
 import Nav from "./components/Nav"
+import BookList from "./components/BookList";
+import AddBookForm from "./components/AddBookFrom";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
-import { AuthProvider } from "./context/Auth";
 
 const App = () => {
 
@@ -16,21 +18,34 @@ const App = () => {
       <AuthProvider>
         <Nav />
         <section className="ResponsiveContainer">
-          <LibraryProvider>
-            <section className="AccountManagement">
-              <LoginForm />
-            </section>
-            <br />
-            <section className="AccountManagement">
-              <RegisterForm />
-            </section>
-            <br />
-            {/* <AddBookForm /> */}
-            <BookList />
-          </LibraryProvider>
+          <PageContent />
         </section>
       </AuthProvider>
     </StrictMode>
+  );
+};
+
+const PageContent = () => {
+  const auth = useAuth();
+  
+  const authForms = (
+    <>
+      <section className="AccountManagement">
+        <LoginForm />
+      </section>
+      <br />
+      <section className="AccountManagement">
+        <RegisterForm />
+      </section>
+      <br />
+    </>
+  );
+
+  return (
+    <LibraryProvider>
+      {auth.token ? (<AddBookForm />) : authForms}
+      <BookList />
+    </LibraryProvider>
   );
 };
 

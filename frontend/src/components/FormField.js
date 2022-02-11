@@ -1,13 +1,13 @@
 import React from "react";
 
-const FormField = ({ label, type = "text", name, onChange, required = false }) => {
+const FormField = ({ children, label, type = "text", onChange, ...options }) => {
     return (
         <>
             <label>
                 {label}
 
                 <br/>
-                <input className="Textfield" name={name} type={type} onChange={e => onChange(e.target.value)} required={required}/>
+                <input className="Textfield" type={type} onChange={e => onChange(e.target.value)} {...options}/>
                 <br/>
             </label>
         </>

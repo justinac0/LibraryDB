@@ -1,3 +1,4 @@
+from warnings import catch_warnings
 from flask import jsonify
 from . import db
 
@@ -13,37 +14,31 @@ class User(db.Model):
     password    = db.Column(db.String(255), unique=False, nullable=False)
 
     def add(user):
-        # Validate Input: True = Success, False = Failure
-        # username
-        # email
-        # password
+        # Validate Input
 
         db.session.add(user)
         db.session.commit()
         db.session.refresh(user)
 
-        return True
+        return user
 
     def get(id):
         try:
-            user = User.query.filter_by(username="justin").first()
-            
-            if user:
-                return jsonify(user)
-            else:
-                raise RuntimeError
+            user = db.session.query(User).filter(
+                User.id == id
+            ).first()
+
+            return user
         except:
-            return jsonify(a=1)
+            return None
 
     def get_all():
-        query = User.query.all()
-
-        if len(query) == 0:
-            return jsonify({})
-
-        users = [ dict(q) for q in query ]
-
-        return jsonify(users)
+        try:
+            query = User.query.all()
+            users = [ dict(q) for q in query ]
+            return users
+        except:
+            return None
 
     def __iter__(self):
         for key in self.__dict__:
@@ -80,18 +75,25 @@ class Book(db.Model):
     title       = db.Column(db.String(255), unique=False, nullable=False)
     publisher   = db.Column(db.String(255), unique=False, nullable=False)
     author      = db.Column(db.String(255), unique=False, nullable=False)
-    description = db.Column(db.String(1023), unique=False, nullable=False)
+    description = db.Column(db.String(2047), unique=False, nullable=False)
     isbn        = db.Column(db.Integer, unique=True, nullable=False)
 
+    def add(book):
+        # Validate Input
+
+        db.session.add(book)
+        db.session.commit()
+        db.session.refresh(book)
+
+        return book
+
     def get_all():
-        query = Book.query.all()
-
-        if len(query) == 0:
-            return jsonify({})
-
-        books = [ dict(q) for q in query ]
-
-        return jsonify(books)
+        try:
+            query = Book.query.all()
+            books = [ dict(q) for q in query ]
+            return books
+        except:
+            return None
 
     def __iter__(self):
         for key in self.__dict__:

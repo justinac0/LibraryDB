@@ -1,5 +1,4 @@
-from operator import methodcaller
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from . import auth
 from . import models
 
@@ -14,13 +13,16 @@ def index():
 
 @libdb.route("/users", methods=["GET"])
 def get_users():
-    return models.User.get_all()
+    users = models.User.get_all()
+
+    if users:
+        return jsonify(users)
 
 
 @libdb.route("/users/<int:id>", methods=["GET"])
-@auth.token_required
 def get_user(id):
-    return models.User.get(id)
+    user = models.User.get(id)
+    return jsonify(id=user.id, email=user.email, username=user.username)
 
 
 @libdb.route("/locations")
@@ -33,10 +35,14 @@ def get_locations():
 
 @libdb.route("/books", methods=["GET"])
 def get_books():
-    return models.Book.get_all()
+    books = models.Book.get_all()
+    return jsonify(books)
 
 
 @libdb.route("/books", methods=["POST"])
 @auth.token_required
 def add_book():
-    return jsonify(book="added....")
+    book = models.Book(**request.json)
+    models.Book.add(book)
+
+    return jsonify(**request.json)

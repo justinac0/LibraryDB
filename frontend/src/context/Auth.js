@@ -22,24 +22,22 @@ const useAuthProvider = () => {
             body: JSON.stringify({username, password})
         })
         .then(response => response.json())
-        .catch(error => console.log(error));
     }
 
     const logout = () => {
         setToken("")
     }
 
-    const register = (username, password) => {
+    const register = (username, email, password) => {
         return fetch("http://localhost:5000/register", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify({username, email, password})
         })
         .then(response => response.json())
-        .catch(error => console.log(error));
     }
 
     const updateToken = (new_token) => {

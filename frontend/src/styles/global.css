@@ -10,7 +10,7 @@ body {
 .ResponsiveContainer {
   margin: auto;
   padding: 1.5ch;
-  max-width: 75%;
+  max-width: 50em;
   width: 40em;
 }
 

@@ -13,8 +13,14 @@ const LoginForm = () => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
-        auth.updateToken(await auth.login(username, password));
+        try {
+            const status = await auth.login(username, password);
+            auth.updateToken(status);
+        } catch (error) {
+            // Display error message on screen (also return a useful error message from flask in json form)
+            setPassword("");
+            console.warn(error);
+        }
     };
 
     return (
@@ -24,8 +30,8 @@ const LoginForm = () => {
             :
                 <form onSubmit={onSubmit}>
                     <h1><u>Login</u></h1>
-                    <FormField label="Username:" name="username" onChange={setUsername} required/>
-                    <FormField label="Password:" name="password" type="password" onChange={setPassword} required/>
+                    <FormField label="Username:" name="username" onChange={setUsername} value={username} required />
+                    <FormField label="Password:" name="password" type="password" onChange={setPassword} value={password} required />
 
                     <input className="Button LoginButton" type="submit" value={"Login"}/>
                 </form>
