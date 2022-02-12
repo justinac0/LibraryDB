@@ -13,7 +13,7 @@ auth = Blueprint("auth", __name__)
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.headers.get("token")
+        token = request.args.get("token")
 
         if not token:
             return "Token is Missing", 401
@@ -26,7 +26,7 @@ def token_required(f):
         return f(*args, **kwargs)
     
     return decorated
- 
+
 
 @auth.route("/register", methods=["POST"])
 def register():
@@ -42,7 +42,7 @@ def login():
     user = models.User.query.filter_by(username=data.username, password=data.password).first()
 
     if user:
-        token = jwt.encode({"user": data.username, "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=5), "username": data.username}, "testing")
+        token = jwt.encode({"user": data.username, "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=30), "username": data.username}, "testing")
         return jsonify(token)
 
     return "Could not verify Login", 401

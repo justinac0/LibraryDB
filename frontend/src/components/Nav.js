@@ -8,13 +8,18 @@ const Nav = () => {
     const auth = useAuth();
 
     return (
-        <header className="Nav">
-            <nav>
-                <h2>library-db</h2>
-            </nav>
+        <div className="Nav">
+            <h1>library-db</h1>
 
-            <p className="shorty">{auth.token}</p>
-        </header>
+            {auth.isAuthentic &&
+                <>
+                    <p>logged in as: {auth.username}</p>
+                    <button className="Button" onClick={auth.logout}>logout</button>
+                    <br />
+                    <br />
+                </>
+            }
+        </div>
     );
 }
 

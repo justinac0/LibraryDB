@@ -29,7 +29,7 @@ const AddBookForm = () => {
                 <FormField label="Description:" name="description" onChange={setDescription} required/>
                 <FormField label="ISBN:" name="isbn" onChange={setISBN} required/>
 
-                <button type="submit">Add Book</button>
+                <button className="Button" type="submit">Add Book</button>
             </form>
         </div>
     );

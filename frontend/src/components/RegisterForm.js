@@ -29,7 +29,7 @@ const RegisterForm = () => {
                 <FormField label="Email:" type="email" name="email" onChange={setEmail} value={email} required />
                 <FormField label="Password:" type="password" name="password" onChange={setPassword} value={password} required />
 
-                <input className="Button LoginButton" type="submit" value="Submit" />
+                <input className="Button FullWidth" type="submit" value="Submit" />
             </form>
         </>
     );

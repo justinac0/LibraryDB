@@ -11,6 +11,8 @@ export const AuthProvider = ({children}) => {
 
 const useAuthProvider = () => {
     const [token, setToken] = useState("");
+    const [username, setUsername] = useState("");
+    const [isAuthentic, setIsAuthentic] = useState(false);
 
     const login = (username, password) => {
         return fetch("http://localhost:5000/login", {
@@ -21,11 +23,18 @@ const useAuthProvider = () => {
             },
             body: JSON.stringify({username, password})
         })
-        .then(response => response.json())
+        .then(response => {
+            setIsAuthentic(true);
+            setUsername(username);
+
+            return response.json();
+        })
     }
 
     const logout = () => {
         setToken("")
+        setUsername("")
+        setIsAuthentic(false);
     }
 
     const register = (username, email, password) => {
@@ -46,6 +55,8 @@ const useAuthProvider = () => {
 
     return {
         token,
+        username,
+        isAuthentic,
         updateToken,
         login,
         logout,

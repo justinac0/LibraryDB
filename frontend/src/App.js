@@ -7,7 +7,7 @@ import { AuthProvider, useAuth } from "./context/Auth";
 
 import Nav from "./components/Nav"
 import BookList from "./components/BookList";
-import AddBookForm from "./components/AddBookFrom";
+import FilterBooks from "./components/FilterBooks";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 
@@ -43,8 +43,12 @@ const PageContent = () => {
 
   return (
     <LibraryProvider>
-      {auth.token ? (<AddBookForm />) : authForms}
-      <BookList />
+      {auth.token ? (
+        <>
+          <FilterBooks />
+          <BookList />
+        </>
+        ) : authForms}
     </LibraryProvider>
   );
 };

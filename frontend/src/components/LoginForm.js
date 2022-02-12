@@ -16,6 +16,7 @@ const LoginForm = () => {
         try {
             const status = await auth.login(username, password);
             auth.updateToken(status);
+            console.log(status);
         } catch (error) {
             // Display error message on screen (also return a useful error message from flask in json form)
             setPassword("");
@@ -24,19 +25,13 @@ const LoginForm = () => {
     };
 
     return (
-        <>
-            {auth.token ?
-                <button  className="Button LoginButton" onClick={auth.logout}>Logout</button>
-            :
-                <form onSubmit={onSubmit}>
-                    <h1><u>Login</u></h1>
-                    <FormField label="Username:" name="username" onChange={setUsername} value={username} required />
-                    <FormField label="Password:" name="password" type="password" onChange={setPassword} value={password} required />
+        <form onSubmit={onSubmit}>
+            <h1><u>Login</u></h1>
+            <FormField label="Username:" name="username" onChange={setUsername} value={username} required />
+            <FormField label="Password:" name="password" type="password" onChange={setPassword} value={password} required />
 
-                    <input className="Button LoginButton" type="submit" value={"Login"}/>
-                </form>
-            }
-        </>
+            <input className="Button FullWidth" type="submit" value={"Login"}/>
+        </form>
     );
 }
 

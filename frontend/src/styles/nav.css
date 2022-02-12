@@ -1,17 +1,11 @@
 .Nav {
-    display: inline-block;
-    width: 100%;
+    position: relative;
+    padding: 1em;
     background-color: #fff;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.25);
 }
 
 .Nav > * {
-    margin-left: 2em;
-}
-
-.shorty {
-    width: 32ch;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
 }

@@ -10,7 +10,7 @@ body {
 .ResponsiveContainer {
   margin: auto;
   padding: 1.5ch;
-  max-width: 50em;
+  max-width: 70%;
   width: 40em;
 }
 
@@ -32,5 +32,12 @@ body {
   border-radius: 5px;
   color: white;
 
+  cursor: pointer;
+  background-color: #009688;
+
   text-transform: lowercase;
+}
+
+.FullWidth {
+  width: 100%;
 }

@@ -22,9 +22,3 @@
 .Textfield:focus {
     background-color: #C8E6C950;
 }
-
-.LoginButton {
-    width: 100%;
-    cursor: pointer;
-    background-color: #009688;
-}

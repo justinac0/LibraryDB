@@ -12,7 +12,8 @@ export const LibraryProvider = ({children}) => {
 }
 
 const useLibraryProvider = () => {
-    const [books, setBooks] = useState([{}]);
+    const [books, setBooks] = useState([]);
+    const [filteredBooks, setFilteredBooks] = useState([]);
 
     const auth = useAuth();
 
@@ -25,6 +26,28 @@ const useLibraryProvider = () => {
     const loadBooks = async () => {
         const loaded = await fetchBooks();
         setBooks(loaded);
+        console.log(books);
+    }
+
+    const filterBooks = (term) => {
+        let filtered = [];
+
+        books.forEach(book => {
+            const ltitle = book.title.toLowerCase();
+            const ldesc = book.description.toLowerCase();
+            const lauth = book.author.toLowerCase();
+            const lpub = book.publisher.toLowerCase();
+            const lterm = term.toLowerCase();
+
+            if (ltitle.match(lterm) ||
+                ldesc.match(lterm)  ||
+                lauth.match(lterm)  ||
+                lpub.match(lterm)) {
+                filtered.push(book);
+            }
+        });
+
+        setFilteredBooks(filtered);
     }
 
     useEffect(() => {
@@ -54,9 +77,11 @@ const useLibraryProvider = () => {
         setBooks(newBooks);
         return newBooks;
     }
-    
+
     return {
         books,
+        filteredBooks,
+        filterBooks,
         loadBooks,
         addBook,
     }
